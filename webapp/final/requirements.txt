@@ -6,7 +6,7 @@ itsdangerous==2.1.1
 Jinja2==3.0.3
 MarkupSafe==2.1.1
 mysql-connector-python==8.0.29
-protobuf==4.21.1
+protobuf==4.21.6
 python-dotenv==0.19.2
 Werkzeug==2.0.3
 zipp==3.7.0
