@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reservations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+        <a href="{{ url_for('main.index') }}" class="button is-primary">Back to list</a>
+
+        {% if booking.reference_number %}
+        <a href="{{ url_for('main.delete', reference_number=booking.reference_number) }}" class="button is-danger">Delete</a>
+        {% endif %}
+
+        <form method="POST">
+        <div class="field">
+            <label class="label">Guest Name</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Guest name" name="name" value="{{ booking.name }}">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Guest Email</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Guest email"  name="email" value="{{ booking.email }}">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Arrival Date</label>
+            <div class="control">
+              <input class="input" type="date" name="check_in" value="{{ booking.check_in }}">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Departure Date</label>
+            <div class="control">
+              <input class="input" type="date" name="check_out" value="{{ booking.check_out }}">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Airport Pickup Time</label>
+            <div class="control">
+              <input class="input" type="text" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:00" name="airport_pickup_time" value="{{ booking.airport_pickup_time if booking.airport_pickup_time is not none }}">
+            </div>
+          </div>
+
+          <label class="label">Room Type</label>
+          
+          <div class="field">
+          <div class="select">
+            <div class="control">
+            <select name="room_type">
+              {% for type in room_types %}
+              <option value="{{ type.code }}" {% if type.code == booking.code %}selected{% endif %}>{{ type.description }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" name="breakfast" {% if booking.breakfast %}checked{% endif %}>
+              Include breakfast
+            </label>
+          </div>
+        </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-link">Submit</button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </section>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reservations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+        <h1 class="title">Reservations</h1>
+
+        <a class="button is-primary" href="{{ url_for('main.create_get') }}">Create New</a> <br />
+ 
+        
+    <table class="table is-fullwidth is-hoverable">
+        <thead>
+          <tr>
+            <th>Reference Number</th>
+            <th>Guest Name</th>
+            <th>Arrive</th>
+            <th>Depart</th>
+            <th>Room Type</th>
+            <th>Breakfast</th>
+            <th>Airport Pickup Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in bookings %}
+          <tr>
+            <th><a href="{{ url_for('main.update_get', reference_number=item.reference_number) }}">{{ item.reference_number }}</a></th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.check_in }}</td>
+            <td>{{ item.check_out }}</td>
+            <td>{{ item.description }}</td>
+            <td>{% if item.breakfast %}Yes{% else %}No{% endif %}</td>
+            <td>{% if item.airport_pickup_time %}{{ item.airport_pickup_time }}{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  </body>
+</html>
